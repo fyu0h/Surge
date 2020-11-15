@@ -1,5 +1,6 @@
-#!name=Script - All in one . By nzw9314
-#!desc=该模块为脚本合集,用于Remove Ads + unlock vip.集成: NobyDa、yichahucha、Choler、onewayticket、langkhach以及个人收集整理的脚本. 需要配置 CA 证书并启用 MitM 开关.  您可以在使用后手动将本模块禁用，以免产生不必要的MITM.如果您是YouTube会员.请添加-*.googlevideo.com到hostname，否则无法加载视频.
+#!name=Script - All in one . By nzw9314 ,edited by fyu0h 20201115
+#!desc=该模块为脚本合集,用于Remove Ads + unlock vip.集成: NobyDa、yichahucha、Choler、onewayticket、langkhach以及个人收集整理的脚本. 需要配置 CA 证书并启用 MitM 开关.  您可以在使用后手动将本模块禁用，以免产生不必要的MITM.如果您是
+会员.请添加-*.googlevideo.com到hostname，否则无法加载视频.
 #!system=ios
 [General]
 # > 优酷 去广告
@@ -11,8 +12,6 @@ URL-REGEX,^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start$,REJECT-
 # > 哔哩哔哩 去广告 
 URL-REGEX,https://app.bilibili.com/x/v2/(splash|search/(defaultword|square)),REJECT
 URL-REGEX,https://api.bilibili.com/x/v2/dm/ad,REJECT
-# > YouTube 去片头广告
-URL-REGEX,^https?:\/\/[\w-]+\.googlevideo\.com\/.+&(oad|ctier),REJECT-TINYGIF
 # > 知乎 去广告
 
 //SOME MCN INFO MAY BE USEFUL
@@ -53,10 +52,6 @@ URL-REGEX,^http(s)://api.bjxkhc.com/index.php/app/ios/ads/index,REJECT-TINYGIF
 https:\/\/.*.xiaoxiao(img|apps|appxs).com header-replace Cookie xxx_api_auth=6131333537653261363463323331666265663763396239663835636662373930
 
 [Script]
-# Chavy box (多账号Cookie保存切换)
-# 访问: http://boxjs.com管理
-Rewrite: BoxJs = type=http-request,pattern=^https?://boxjs.com(/api|/home|/sub|/my|/app|/log|/revert)?($|\/),script-path=https://gitee.com/chavyleung/scripts/raw/master/chavy.box.js, requires-body=true, timeout=120
-
 # > yichahucha
 # > 京东比价
 jd_price.js = type=http-response,pattern=https?://api\.m\.jd\.com/client\.action\?functionId=(wareBusiness|serverConfig|basicConfig),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/yichahucha/surge/master/jd_price.js,script-update-interval=0
@@ -78,9 +73,6 @@ douyin_ad = type=http-response,pattern=^https?:\/\/aweme\.snssdk\.com\/aweme\/v1
 
 # > 微信公众号
 WeChat.js = script-path=https://Choler.github.io/Surge/Script/WeChat.js,type=http-request,pattern=^https://mp\.weixin\.qq\.com/mp/getappmsgad
-# > YouTube
-//YouTube.js = script-path=https://Choler.github.io/Surge/Script/YouTube.js,type=http-request,pattern=^https://[\s\S]*\.googlevideo\.com/.*&(oad|ctier)
-
 # > 腾讯新闻 去广告
 QQNews.js = requires-body=1,script-path=https://Choler.github.io/Surge/Script/QQNews.js,type=http-response,pattern=^https://r\.inews\.qq.com\/get(QQNewsUnreadList|RecommendList)
 # > 人人视频 去广告
